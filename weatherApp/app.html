@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherApp</title>
+
+    <style>
+       body{
+        background-color:antiquewhite ;
+       }
+        .main{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .city{
+           margin-top: 10px;
+           margin-left: 250px;
+           background: none;
+           width: 7%;
+           height: 10px;
+        }
+        #inputText{
+            width:300px;
+            height: 40px;
+            border-radius: 12px;
+            margin-left:-74%;
+            margin-top: 1%;
+        }
+        #city{
+            width:300px;
+            height: 40px;
+            margin-left:40%;
+            margin-top: 2%;
+        }
+        h1{
+            margin-left: 20%;
+            margin-top: 5%;
+        }
+    
+    </style>
+</head>
+<body>
+   
+        <div class="main">
+            <h1>Weather App</h1>
+            <form action="" style="margin-top: 388px;" autocomplete="off">
+                <input type="text" id="inputText" placeholder="search by city name">
+            </form>
+        </div>
+    
+        <div id="city">
+            
+        </div> 
+</body>
+
+
+<script>
+    const API_KEY = '232fabb1848d5214bd929ba93a00c10c';
+
+
+    //  const API = `https://api.openweathermap.org/data/2.5/weather?
+    // q=${city}&appid=${API_KEY}&units=metric`
+    
+    let search = document.querySelector('#inputText')
+    let button = document.querySelector('.submit')
+    let weather = document.querySelector('#city')
+    let form = document.querySelector('form')
+   
+   
+   const getWeather =  async (city) => {
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
+    //unit = metric (tem will be in metric not kelvin)
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log(data)
+     return showWeather(data);
+   }
+
+   const showWeather = (data) =>{
+           weather.innerHTML = ` <div id="city">
+            <h2>${data.main.temp}°C</h2>
+        </div>`
+
+        search = "";
+   }   
+
+    form.addEventListener("submit" , 
+    function(event){
+        getWeather(search.value)
+        event.preventDefault();
+    })
+     
+    
+    
+</script>
+</html>
